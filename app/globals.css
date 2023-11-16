@@ -2,11 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-img{
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,200;0,500;0,700;1,200&family=Zhi+Mang+Xing&display=swap");
+* {
+    font-family: "Kanit", sans-serif;
+    font-family: "Zhi Mang Xing", cursive;
+}
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+/* img{
   transition: 0.3s;
 }
 
 img:hover{
   transform: scale(1.05);
   transition: 0.3s;
-}
+} */

@@ -1,15 +1,13 @@
-import Card from "./components/utilities/Card";
-import Navbar from "./components/utilities/Navbar";
+import { getAnimeResponse } from "@/libs/api";
+import Card from "@/components/utilities/Card";
+import Navbar from "@/components/utilities/Navbar";
 export default async function Home() {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/top/anime?limit=9`);
-  const TopAnime = await result.json()
+    const TopAnime = await getAnimeResponse("top/anime", "limit=15&filter=bypopularity");
 
-  return (
-      <main className="flex flex-col justify-center items-center">
-          <Navbar/>
-          <Card api={TopAnime.data} title="Top Anime"/>
-          <Card api={TopAnime.data} title="Recomendation"/>
-          <Card api={TopAnime.data} title="List Anime"/>
-      </main>
-  );
+    return (
+        <main className="flex flex-col items-center">
+            <Navbar />
+            <Card api={TopAnime} NameOfSection="Top Anime" />
+        </main>
+    );
 }

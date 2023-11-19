@@ -1,17 +1,20 @@
 import Navbar from "@/components/utilities/Navbar";
 import { getAnimeResponse } from "@/libs/api";
 import Image from "next/image";
+import YouTube from "react-youtube";
+import YoutubeAnime from "./YoutubeAnime";
+import { TreeStructure } from "@phosphor-icons/react/dist/ssr";
 
 export default async function Home({params : { id }}) {
     try {
       const Anime = await getAnimeResponse(`anime/${id}`);
 
         return (
-            <main className="w-full flex flex-col items-center">
-                <div className="w-full h-52 md:h-96 lg"><Image className="w-full h-full object-cover" src={process.env.NEXT_PUBLIC_IMAGE_ID_ANIME} width={300} height={300} alt=""/></div>
+            <main className="w-full flex flex-col items-center relative">
+                <div className="w-full h-52 md:h-96 lg"><Image priority={true} className="w-full h-full object-cover" src={process.env.NEXT_PUBLIC_IMAGE_ID_ANIME} width={300} height={300} alt=""/></div>
                 <div className="w-full flex flex-wrap items-end">
                     <div className="w-4/12 h-32 md:h-64 md:-mt-32 lg:h-80 lg:-mt-40 self-start -mt-16">
-                      <Image className="w-full h-full object-cover" src={Anime.trailer.images.maximum_image_url} alt="" width={300} height={300}/>
+                      <Image priority={true} className="w-full h-full object-cover" src={Anime.trailer.images.maximum_image_url || process.env.NEXT_PUBLIC_IMAGE_ID_ANIME} alt="" width={300} height={300}/>
                     </div>
                     <div className="w-8/12 h-16 text-2xl md:text-4xl lg:text-5xl md:h-32 lg:h-40">{ Anime.title}</div>
                 </div>
@@ -28,6 +31,7 @@ export default async function Home({params : { id }}) {
                     <div className="h-20 bg-red-500"></div>
                   </div>
                 </div>
+                <YoutubeAnime video_id={Anime?.trailer?.youtube_id}/>
             </main>
         );
     } catch (error) {
